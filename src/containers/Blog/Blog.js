@@ -1,27 +1,28 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Post from '../../components/Post/Post';
 import FullPost from '../../components/FullPost/FullPost';
 import NewPost from '../../components/NewPost/NewPost';
 import './Blog.css';
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '../../axios'
 
 class Blog extends Component {
     state = {
         posts: [],
         selectedPostId: null,
         error: false
-    }
+    };
 
     componentDidMount() {
-        axios.get("https://jsonplaceholder.typicode.com/posts")
+        axios.get("/posts")
             .then(response => {
-                const posts = response.data.slice(0, 4)
+                const posts = response.data.slice(0, 4);
                 const updatedPosts = posts.map((el, index) => {
                     return {
                         ...el,
                         author: 'Max'
                     }
-                })
+                });
                 this.setState({
                     posts: updatedPosts
                 })
@@ -42,10 +43,11 @@ class Blog extends Component {
 
 
     render() {
-        let posts = <p style={{ textAlign: 'center' }}>Something went wrong!</p>;
+        let posts = <p style={{textAlign: 'center'}}>Something went wrong!</p>;
         if (!this.state.error) {
             posts = this.state.posts.map((el, index) => {
-                return <Post key={el.id} title={el.title} author={el.author} clicked={() => this.postSelectedHandler(el.id)} />
+                return <Post key={el.id} title={el.title} author={el.author}
+                             clicked={() => this.postSelectedHandler(el.id)}/>
             });
         }
 
@@ -55,10 +57,10 @@ class Blog extends Component {
                     {posts}
                 </section>
                 <section>
-                    <FullPost id={this.state.selectedPostId} />
+                    <FullPost id={this.state.selectedPostId}/>
                 </section>
                 <section>
-                    <NewPost />
+                    <NewPost/>
                 </section>
             </div>
         );
