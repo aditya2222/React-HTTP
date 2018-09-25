@@ -12,6 +12,7 @@ class NewPost extends Component {
     };
 
     componentDidMount() {
+        // if unauth=> this.props.history.push('/posts')  prevent user from redirecting if not authenticated
         console.log(this.props)
     }
 
