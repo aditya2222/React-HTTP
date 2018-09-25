@@ -24,9 +24,8 @@ class NewPost extends Component {
         axios.post('/posts', data)
             .then(response => {
                 console.log(response)
-                this.setState({
-                    submitted: true
-                })
+                // this.setState({submitted: true})
+                this.props.history.push('/posts')
             })
             .catch(error => {
                 console.log('this is an error', error)
